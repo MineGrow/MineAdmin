@@ -64,21 +64,6 @@ define(['jquery', 'bootstrap', 'backend', 'addtabs', 'adminlte', 'form'], functi
                 Backend.api.addtabs($(this).data("url"));
             });
 
-            //读取FastAdmin的更新信息
-            $.ajax({
-                url: Config.fastadmin.api_url + '/news/index',
-                type: 'post',
-                dataType: 'jsonp',
-                success: function (ret) {
-                    $(".notifications-menu > a span").text(ret.new > 0 ? ret.new : '');
-                    $(".notifications-menu .footer a").attr("href", ret.url);
-                    $.each(ret.newslist, function (i, j) {
-                        var item = '<li><a href="' + j.url + '" target="_blank"><i class="' + j.icon + '"></i> ' + j.title + '</a></li>';
-                        $(item).appendTo($(".notifications-menu ul.menu"));
-                    });
-                }
-            });
-
             //版本检测
             var checkupdate = function (ignoreversion, tips) {
                 $.ajax({
@@ -117,14 +102,14 @@ define(['jquery', 'bootstrap', 'backend', 'addtabs', 'adminlte', 'form'], functi
             };
 
             //读取版本检测信息
-            var ignoreversion = localStorage.getItem("ignoreversion");
-            if (ignoreversion !== "*") {
-                checkupdate(ignoreversion, false);
-            }
-            //手动检测版本信息
-            $("a[data-toggle='checkupdate']").on('click', function () {
-                checkupdate('', true);
-            });
+            // var ignoreversion = localStorage.getItem("ignoreversion");
+            // if (ignoreversion !== "*") {
+            //     checkupdate(ignoreversion, false);
+            // }
+            // //手动检测版本信息
+            // $("a[data-toggle='checkupdate']").on('click', function () {
+            //     checkupdate('', true);
+            // });
 
             //切换左侧sidebar显示隐藏
             $(document).on("click fa.event.toggleitem", ".sidebar-menu li > a", function (e) {
@@ -179,7 +164,7 @@ define(['jquery', 'bootstrap', 'backend', 'addtabs', 'adminlte', 'form'], functi
             });
 
             //绑定tabs事件,如果需要点击强制刷新iframe,则请将iframeForceRefresh置为true
-            $('#nav').addtabs({iframeHeight: "100%", iframeForceRefresh: false});
+            $('#nav').addtabs({iframeHeight: "100%", iframeForceRefresh: true});
 
             var addtabs = localStorage.getItem("addtabs");
             if ($("ul.sidebar-menu li.active a").size() > 0) {
