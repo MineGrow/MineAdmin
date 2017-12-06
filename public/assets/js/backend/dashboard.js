@@ -104,24 +104,6 @@ define(['jquery', 'bootstrap', 'backend', 'addtabs', 'table', 'echarts', 'echart
             $(window).resize(function () {
                 myChart.resize();
             });
-
-            //读取FastAdmin的更新信息
-            $.ajax({
-                url: Config.fastadmin.api_url + '/news/index',
-                type: 'post',
-                dataType: 'jsonp',
-                success: function (ret) {
-                    $("#news-list").html(Template("newstpl", {news: ret.newslist}));
-                }
-            });
-            $.ajax({
-                url: Config.fastadmin.api_url + '/forum/discussion',
-                type: 'post',
-                dataType: 'jsonp',
-                success: function (ret) {
-                    $("#discussion-list").html(Template("discussiontpl", {news: ret.discussionlist.slice(0,6)}));
-                }
-            });
         }
     };
 
